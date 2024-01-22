@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +8,31 @@
 </head>
 <body>
 
-<h1>Admin Signup</h1>
+	<div>
+	<p>No,you are'nt</p>
 
-<form action="adminsignup" method="post">
+		<h1>Signup to be an Admin</h1>
+		<form action="adminsignup" method="post">
 
-Admin ID : <input type="number" name="adminid"><br><br>
-Admin Name : <input type="text" name="adminname"><br><br>
-Admin Contact : <input type="number" name="admincontact"><br><br>
-Admin Email : <input type="email" name="adminemail"><br><br>
-Admin Password : <input type="password" name="adminpassword"><br><br>
-<input type="submit">
+		<label for="adminid">Admin ID : </label> 
+		<input type="number" name="adminid" id="adminid"><br>
+		<br> <label for="adminname">Admin Name : </label> <input type="text" name="adminname" id="adminname"><br>
+		<br> Admin Contact : <input type="number" name="admincontact"><br>
+		<br> Admin Email : <input type="email" name="adminemail"><br>
+		<br> Admin Password : <input type="password" name="adminpassword"><br>
+		<br> <input type="submit">
 
-</form>
+	</form>
+	</div>
+	
+	<%
+	String message=(String)request.getAttribute("message");
+	if(message!=null){
+	out.print(message);
+	}
+	%>
+
+	
 
 </body>
 </html>

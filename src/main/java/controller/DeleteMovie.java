@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 
@@ -23,10 +24,21 @@ public class DeleteMovie extends HttpServlet
 		
 		try
 		{
-			dao.deleteMovie(id);
-			req.setAttribute("movieid", dao.getAllMovies());
-			RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
-			rd.include(req, resp);
+			HttpSession session=req.getSession();
+			String adminemail=(String)session.getAttribute("adminemail");
+			if (adminemail!=null)
+			{
+				dao.deleteMovie(id);
+				req.setAttribute("movie", dao.getAllMovies());
+				RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
+				rd.include(req, resp);
+			} 
+			else
+			{
+				req.setAttribute("message", "Access Denied ! , Admin login is Required.");
+				RequestDispatcher rd=req.getRequestDispatcher("adminlogin.jsp");
+				rd.include(req, resp);
+			}
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{

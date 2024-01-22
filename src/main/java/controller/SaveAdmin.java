@@ -44,7 +44,8 @@ public class SaveAdmin extends HttpServlet
 			} 
 			else
 			{
-				RequestDispatcher rd=req.getRequestDispatcher("asminsignup.jsp");
+				req.setAttribute("message", "Signup failed");
+				RequestDispatcher rd=req.getRequestDispatcher("adminsignup.jsp");
 				rd.include(req, resp);
 			}
 		} 

@@ -44,7 +44,7 @@ public class Dao
 		ResultSet rs=pst.executeQuery();
 		Admin admin=new Admin();
 		
-		if (rs.next())
+		while (rs.next())
 		{
 			admin.setAdminid(rs.getInt(1));
 			admin.setAdminname(rs.getString(2));
@@ -52,13 +52,9 @@ public class Dao
 			admin.setAdminemail(rs.getString(4));
 			admin.setAdminpassword(rs.getString(5));
 			
-			return admin;
+			
 		}
-		else
-		{
-			return null;
-		}
-		
+		return admin;
 	}
 	
 	public int saveMovie(Movie movie) throws SQLException, ClassNotFoundException

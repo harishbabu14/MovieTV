@@ -44,7 +44,9 @@ public class SaveMovie extends HttpServlet
 		try
 		{
 			dao.saveMovie(movie);
-			resp.sendRedirect("home.jsp");
+			req.setAttribute("movie", dao.getAllMovies());
+			RequestDispatcher rd = req.getRequestDispatcher("home.jsp");
+			rd.include(req, resp);
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{

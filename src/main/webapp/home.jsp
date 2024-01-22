@@ -40,9 +40,9 @@ table,tr,td,th{
 <th>DELETE</th>
 <th>EDIT</th>
 </tr>
+
 <% 
-Dao d=new Dao();
-List<Movie> movie=d.getAllMovies();
+List<Movie> movie = (List) request.getAttribute("movie");
 
 if(movie !=null)
 {
