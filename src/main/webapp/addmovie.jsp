@@ -1,26 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>MovieTV : : Admin-AddMovie</title>
+<link rel="stylesheet" href="addmovie.css">
 </head>
 <body>
-
-<h1>Add Movie</h1>
-<form action="addmovie" method="post" enctype="multipart/form-data">
-
-Movie ID : <input type="number" name="movieid"><br><br>
-Movie Name : <input type="text" name="moviename"><br><br>
-Movie Price : <input type="number" name="movieprice"><br><br>
-Movie Rating : <input type="number" name="movierating"><br><br>
-Movie Genre : <input type="text" name="moviegenre"><br><br>
-Movie Language : <input type="text" name="movielanguage"><br><br>
-Movie Image : <input type="file" name="movieimage"><br><br>
-<input type="submit">
-
-</form>
-
+	<div>
+		<h1>Add Movie</h1>
+		<form action="addmovie" method="post" enctype="multipart/form-data">
+			<table>
+				<tbody>
+					<tr>
+						<td><label for="movieid">Movie ID : </label></td>
+						<td><input type="number" name="movieid" id="movieid"></td>
+					</tr>
+					<tr>
+						<td><label for="moviename">Movie Name : </label></td>
+						<td><input type="text" name="moviename" id="moviename"></td>
+					</tr>
+					<tr>
+						<td><label for="movieprice">Movie Price : </label></td>
+						<td><input type="number" name="movieprice" id="movieprice"></td>
+					</tr>
+					<tr>
+						<td><label for="movierating">Movie Rating : </label></td>
+						<td><input type="number" name="movierating" id="movierating"></td>
+					</tr>
+					<tr>
+						<td><label for="moviegenre">Movie Genre : </label></td>
+						<td><input type="text" name="moviegenre" id="moviegenre"></td>
+					</tr>
+					<tr>
+						<td><label for="movielanguage">Movie Language : </label></td>
+						<td><input type="text" name="movielanguage" id="movielanguage"></td>
+					</tr>
+					<tr>
+						<td><label for="movieimage">Movie Image : </label></td>
+						<td><input type="file" name="movieimage" id="movieimage"></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit">
+		</form>
+	</div>
 </body>
 </html>

@@ -12,46 +12,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-import dto.Admin;
+import dto.User;
 
-@WebServlet("/adminlogin")
-public class AdminLogin extends HttpServlet
+@WebServlet("/userlogin")
+public class UserLogin extends HttpServlet
 {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		String adminemail=req.getParameter("adminemail");
-		String adminpassword=req.getParameter("adminpassword");
+		String useremail=req.getParameter("useremail");
+		String userpassword=req.getParameter("userpassword");
 		
 		Dao dao=new Dao();
-
+		
 		try
 		{
-			Admin admin = dao.findByEmail(adminemail);
-			if (admin.getAdminemail()!=null)
+			User user = dao.findByUserEmail(useremail);
+			if (user.getUseremail()!=null)
 			{
-				if (admin.getAdminpassword().equals(adminpassword))
+				if (user.getUserpassword().equals(userpassword))
 				{
-					HttpSession session = req.getSession();
-					session.setAttribute("adminname",admin.getAdminname());
+					HttpSession session=req.getSession();
+					session.setAttribute("username", user.getUsername());
 					req.setAttribute("movies", dao.getAllMovies());
-					RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
+					req.setAttribute("user", user);
+					RequestDispatcher rd=req.getRequestDispatcher("userhome.jsp");
 					rd.include(req, resp);
 				} 
 				else
 				{
 					req.setAttribute("message", "Password is incorrect");
-					RequestDispatcher rd=req.getRequestDispatcher("adminlogin.jsp");
+					RequestDispatcher rd=req.getRequestDispatcher("userlogin.jsp");
 					rd.include(req, resp);
 				}
-			} 
+			}
 			else
 			{
 				req.setAttribute("message", "Email is incorrect");
-				RequestDispatcher rd=req.getRequestDispatcher("adminlogin.jsp");;
+				RequestDispatcher rd=req.getRequestDispatcher("userlogin.jsp");
 				rd.include(req, resp);
 			}
-		} 
+		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			e.printStackTrace();

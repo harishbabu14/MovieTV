@@ -19,17 +19,17 @@ public class DeleteMovie extends HttpServlet
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		int id=Integer.parseInt(req.getParameter("id"));
+		int id=Integer.parseInt(req.getParameter("movieid"));
 		Dao dao=new Dao();
 		
 		try
 		{
 			HttpSession session=req.getSession();
-			String adminemail=(String)session.getAttribute("adminemail");
-			if (adminemail!=null)
+			String adminname=(String)session.getAttribute("adminname");
+			if (adminname!=null)
 			{
 				dao.deleteMovie(id);
-				req.setAttribute("movie", dao.getAllMovies());
+				req.setAttribute("movies", dao.getAllMovies());
 				RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
 				rd.include(req, resp);
 			} 

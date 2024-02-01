@@ -4,28 +4,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MovieTV : : Admin-Login</title>
-<link rel="stylesheet" href="adminlogin.css">
+<title>MovieTV : : User-Login</title>
+<link rel="stylesheet" href="userlogin.css">
 </head>
 <body>
 	<div>
 		<h2>Yes you are..</h2>
-		<h1>Admin Login</h1>
-		<form action="adminlogin" method="post">
+		<h1>User Login</h1>
+		<form action="userlogin" method="post">
 			<table>
 				<tbody>
 					<tr>
-						<td><label for="adinemail">Admin Email : </label></td>
-						<td><input type="email" name="adminemail" id="adminemail"></td>
+						<td><label for="useremail">User Email : </label></td>
+						<td><input type="email" name="useremail" id="useremail"></td>
 					</tr>
 					<tr>
-						<td><label for="adminpassword">Admin Password : </label></td>
-						<td><input type="password" name="adminpassword" id="adminpassword"></td>
+						<td><label for="userpassword">User Password : </label></td>
+						<td><input type="password" name="userpassword" id="userpassword"></td>
 					</tr>
 				</tbody>
 			</table>
 			<br> <input type="submit">
 		</form>
+		<br>
 		<%
 		String message = (String) request.getAttribute("message");
 		if (message != null)

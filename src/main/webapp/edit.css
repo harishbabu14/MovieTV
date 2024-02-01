@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+div {
+	position: absolute;
+	top: 70px;
+	left: 500px;
+	text-align: center;
+}
+
+h1 {
+	color: olive;
+}
+
+label:hover {
+	color: olive;
+}
+
+td {
+	padding: 10px;
+}

@@ -11,6 +11,7 @@ public class Movie
 	private String moviegenre;
 	private String movielanguage;
 	private byte[] movieimage;
+	
 	public int getMovieid()
 	{
 		return movieid;
@@ -67,6 +68,7 @@ public class Movie
 	{
 		this.movieimage = movieimage;
 	}
+	
 	@Override
 	public String toString()
 	{

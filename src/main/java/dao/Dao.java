@@ -13,6 +13,7 @@ import javax.sql.rowset.serial.SerialBlob;
 
 import dto.Admin;
 import dto.Movie;
+import dto.User;
 
 public class Dao
 {
@@ -42,7 +43,8 @@ public class Dao
 		pst.setString(1, adminemail);
 		
 		ResultSet rs=pst.executeQuery();
-		Admin admin=new Admin();
+		
+		Admin admin = new Admin();
 		
 		while (rs.next())
 		{
@@ -51,10 +53,9 @@ public class Dao
 			admin.setAdmincontact(rs.getLong(3));
 			admin.setAdminemail(rs.getString(4));
 			admin.setAdminpassword(rs.getString(5));
-			
-			
 		}
 		return admin;
+
 	}
 	
 	public int saveMovie(Movie movie) throws SQLException, ClassNotFoundException
@@ -79,7 +80,7 @@ public class Dao
 		Connection con=getConnection();
 		PreparedStatement pst=con.prepareStatement("select * from movietv");
 		ResultSet rs=pst.executeQuery();
-		List<Movie> movie=new ArrayList<Movie>();
+		List<Movie> movies=new ArrayList<Movie>();
 		
 		while (rs.next())
 		{
@@ -94,9 +95,9 @@ public class Dao
 			Blob b=rs.getBlob(7);
 			byte img[]=b.getBytes(1, (int)b.length());
 			m.setMovieimage(img);
-			movie.add(m);
+			movies.add(m);
 		}
-		return movie;
+		return movies;
 	}
 	
 	public int deleteMovie(int id) throws ClassNotFoundException, SQLException
@@ -114,17 +115,20 @@ public class Dao
 		PreparedStatement pst=con.prepareStatement("select * from movietv where movieid=?");
 		pst.setInt(1, movieid);
 		ResultSet rs=pst.executeQuery();
-		rs.next();
 		Movie m=new Movie();
-		m.setMovieid(rs.getInt(1));
-		m.setMoviename(rs.getString(2));
-		m.setMovieprice(rs.getDouble(3));
-		m.setMovierating(rs.getDouble(4));
-		m.setMoviegenre(rs.getString(5));
-		m.setMovielanguage(rs.getString(6));
-		Blob b=rs.getBlob(7);
-		byte[] img=b.getBytes(1, (int)b.length());
-		m.setMovieimage(img);
+		
+		while (rs.next())
+		{
+			m.setMovieid(rs.getInt(1));
+			m.setMoviename(rs.getString(2));
+			m.setMovieprice(rs.getDouble(3));
+			m.setMovierating(rs.getDouble(4));
+			m.setMoviegenre(rs.getString(5));
+			m.setMovielanguage(rs.getString(6));
+			Blob b=rs.getBlob(7);
+			byte[] img=b.getBytes(1, (int)b.length());
+			m.setMovieimage(img);
+		}
 		return m;
 	}
 	
@@ -143,18 +147,41 @@ public class Dao
 		Blob imageBlob= new SerialBlob(movie.getMovieimage());
 		pst.setBlob(6, imageBlob);
 		
-//		if (movie.getMovieimage()==null)
-//		{
-//			pst.setBlob(6, imageBlob);
-//		}
-//		else
-//		{
-//			Movie m=findMovieById(movie.getMovieid());
-//			Blob imageBlob1=new SerialBlob(m.getMovieimage());
-//			pst.setBlob(6, imageBlob1);
-//		}
+		return pst.executeUpdate();
+	}
+	
+	public int saveUser(User user) throws ClassNotFoundException, SQLException
+	{
+		Connection con=getConnection();
+		PreparedStatement pst=con.prepareStatement("insert into user values(?,?,?,?,?)");
+		pst.setInt(1, user.getUserid());
+		pst.setString(2, user.getUsername());
+		pst.setLong(3, user.getUsercontact());
+		pst.setString(4, user.getUseremail());
+		pst.setString(5, user.getUserpassword());
 		
 		return pst.executeUpdate();
+	}
+	
+	public User findByUserEmail(String useremail) throws ClassNotFoundException, SQLException
+	{
+		Connection con=getConnection();
+		PreparedStatement pst=con.prepareStatement("select * from user where useremail=?");
+		pst.setString(1, useremail);
+		
+		ResultSet rs=pst.executeQuery();
+		
+		User user=new User();
+		
+		while (rs.next())
+		{
+			user.setUserid(rs.getInt(1));
+			user.setUsername(rs.getString(2));
+			user.setUsercontact(rs.getLong(3));
+			user.setUseremail(rs.getString(4));
+			user.setUserpassword(rs.getString(5));
+		}
+		return user;
 	}
 }
 

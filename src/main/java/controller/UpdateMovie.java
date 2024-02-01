@@ -47,7 +47,7 @@ public class UpdateMovie extends HttpServlet
 				movie.setMovieimage(movieimage.getInputStream().readAllBytes());
 				dao.updateMovie(movie);
 				
-				req.setAttribute("movie", dao.getAllMovies());
+				req.setAttribute("movies", dao.getAllMovies());
 				RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
 				rd.include(req, resp);
 			}
@@ -57,7 +57,7 @@ public class UpdateMovie extends HttpServlet
 				movie.setMovieimage(dbmovie.getMovieimage());
 				dao.updateMovie(movie);
 				
-				req.setAttribute("movie", dao.getAllMovies());
+				req.setAttribute("movies", dao.getAllMovies());
 				RequestDispatcher rd=req.getRequestDispatcher("home.jsp");
 				rd.include(req, resp);
 			}
