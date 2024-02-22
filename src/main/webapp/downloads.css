@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+div {
+	text-align: center;
+}
+
+h1 {
+	color: olive;
+}
+
+table,tr,td,th {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 20px;
+	text-align: center;
+}
+
+th,td {
+	width: 120px;
+}
+
+a:link {
+	color: black;
+}
+
+a:visited {
+	color: black;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: olive;
+}
+
+button:hover {
+	color: olive;
+}

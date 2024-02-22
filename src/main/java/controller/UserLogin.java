@@ -35,7 +35,7 @@ public class UserLogin extends HttpServlet
 					HttpSession session=req.getSession();
 					session.setAttribute("username", user.getUsername());
 					req.setAttribute("movies", dao.getAllMovies());
-					req.setAttribute("user", user);
+					req.setAttribute("useremail", useremail);
 					RequestDispatcher rd=req.getRequestDispatcher("userhome.jsp");
 					rd.include(req, resp);
 				} 

@@ -183,5 +183,68 @@ public class Dao
 		}
 		return user;
 	}
+	
+	public int downloadMovie(Movie movie,String useremail) throws SQLException, ClassNotFoundException
+	{
+		Connection con=getConnection();
+		PreparedStatement pst=con.prepareStatement("insert into download values(?,?,?,?,?,?,?,?)");
+		pst.setInt(1, movie.getMovieid());
+		pst.setString(2, movie.getMoviename());
+		pst.setDouble(3, movie.getMovieprice());
+		pst.setDouble(4, movie.getMovierating());
+		pst.setString(5, movie.getMoviegenre());
+		pst.setString(6, movie.getMovielanguage());
+		
+		Blob imageBlob=new SerialBlob(movie.getMovieimage());
+		pst.setBlob(7, imageBlob);
+		pst.setString(8, useremail);
+		
+		return pst.executeUpdate();		
+	}
+	
+	public boolean findDownloadByEmail(int movieid,String useremail) throws ClassNotFoundException, SQLException
+	{
+		Connection con=getConnection();
+		PreparedStatement pst=con.prepareStatement("select movieid from download where useremail=?");
+		pst.setString(1, useremail);
+		
+		ResultSet rs=pst.executeQuery();
+		int id=0;
+		while (rs.next())
+		{
+			id=rs.getInt(1);
+			if (movieid==id)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public List<Movie> getAllDownloads(String useremail) throws ClassNotFoundException, SQLException
+	{
+		Connection con=getConnection();
+		PreparedStatement pst=con.prepareStatement("select * from download where useremail=?");
+		pst.setString(1, useremail);
+		ResultSet rs=pst.executeQuery();
+		List<Movie> movies=new ArrayList<Movie>();
+		
+		while (rs.next())
+		{
+			Movie m=new Movie();
+			m.setMovieid(rs.getInt(1));
+			m.setMoviename(rs.getString(2));
+			m.setMovieprice(rs.getDouble(3));
+			m.setMovierating(rs.getDouble(4));
+			m.setMoviegenre(rs.getString(5));
+			m.setMovielanguage(rs.getString(6));
+			
+			Blob b=rs.getBlob(7);
+			byte img[]=b.getBytes(1, (int)b.length());
+			m.setMovieimage(img);
+			movies.add(m);
+		}
+		return movies;
+	}
 }
 
